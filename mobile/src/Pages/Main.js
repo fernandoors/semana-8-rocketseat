@@ -8,7 +8,6 @@ import like from '../assets/like.png'
 import dislike from '../assets/dislike.png'
 
 export const Main = ({ navigation }) => {
-  console.log(navigation.getParam('user'))
   const id = navigation.getParam('user')
   const [users, setUsers] = useState([])
 
@@ -17,7 +16,6 @@ export const Main = ({ navigation }) => {
       const response = await api.get('/devs', {
         headers: { user: id }
       })
-      console.log(response.data)
       setUsers(response.data)
     }
     loadUsers()
@@ -27,7 +25,7 @@ export const Main = ({ navigation }) => {
     const [user, ...rest] = users
     await api.post(`/devs/${user._id}/likes`, null, {
       headers: { user: id }
-    }).then(data=> console.log(data))
+    })
     setUsers(rest)
   }
   const handleDislike = async () => {
